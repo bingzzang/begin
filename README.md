@@ -41,20 +41,20 @@ JAVA SE는 자바 프로그램들이 공통적으로 사용하는 자바 가상 
 * 메소드(Method) : 객체가 하는 일(기능)
 
 <pre><code>
-	class Hello{
-		String name = "Tom";
+	class Hello{ //클래스
+		String name = "Tom";	//멤버변수 (속성)
 		int age= 30;
 		
-		Hello(){
+		Hello(){	//생성자
 		}
         
-		void introduce(){
+		void introduce(){	//메소드
 			System.out.println("이름 : "+name);
 			System.out.println("나이 : "+age);
 		}
 		public static void main(String args[]){
-			Hello h = Hello();
-			h.introduce();
+			Hello h = Hello();	//객체생성
+			h.introduce();		//메소드실행
 		}
 	}
 	</code></pre>
