@@ -33,6 +33,16 @@ JAVA SE는 자바 프로그램들이 공통적으로 사용하는 자바 가상 
 
 서버용 애플리케이션 : Servlet/JSP를 이용한 웹 어플리케이션, EJB(Enterprise Java Bean), XML Web services...
 
+### 4. 용어
+* 객체(Object) : 모든 것, 클래스로부터 나온 구현물
+* 클래스(Class) : 객체를 만들기 위한 틀
+	class Hello{
+		~~
+	}
+* 속성(Attribute) : 객체의 특성
+* 생성자(Constructor) : 객체가 만들어질 때 수행되는 일(기능)
+* 메소드(Method) : 객체가 하는 일(기능)
+
 ------------------------------------------------- 
 
 ## Chapter 2
