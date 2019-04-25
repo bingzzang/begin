@@ -47,6 +47,7 @@ JAVA SE는 자바 프로그램들이 공통적으로 사용하는 자바 가상 
 		
 		Hello(){
 		}
+        
 		void introduce(){
 			System.out.println("이름 : "+name);
 			System.out.println("나이 : "+age);
