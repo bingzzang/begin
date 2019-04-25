@@ -53,8 +53,8 @@ JAVA SE는 자바 프로그램들이 공통적으로 사용하는 자바 가상 
 			System.out.println("나이 : "+age);
 		}
 		public static void main(String args[]){
-		Hello h = Hello();
-		h.introduce();
+			Hello h = Hello();
+			h.introduce();
 		}
 	}
 	</code></pre>
