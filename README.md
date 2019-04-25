@@ -36,7 +36,7 @@ JAVA SE는 자바 프로그램들이 공통적으로 사용하는 자바 가상 
 ### 4. 용어
 * 객체(Object) : 모든 것, 클래스로부터 나온 구현물
 * 클래스(Class) : 객체를 만들기 위한 틀
-	class Hello{
+	 class Hello{
 		~~
 	}
 * 속성(Attribute) : 객체의 특성
