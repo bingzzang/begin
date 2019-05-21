@@ -12,7 +12,7 @@ class Ex5
 	int deposit, withdraw;
 	int num;
 
-	void m1() throws Exception{
+	void m1(){
 		
 
 		Scanner sc = new Scanner(System.in);		//키보드로 입력
@@ -50,7 +50,7 @@ class Ex5
 		}
 		System.out.println("프로그램 종료");
 	}
-	public static void main(String[] args) throws Exception
+	public static void main(String[] args)
 	{
 		Ex5 e5 = new Ex5();
 		e5.m1();
