@@ -75,11 +75,11 @@ JAVA SE는 자바 프로그램들이 공통적으로 사용하는 자바 가상 
 다양한 타입의 값을 젖아할 수 없고 한가지만 가능
 
 #### 변수의 선언
-
+<pre><code>
 int age;
 String name;
 
 String name, city;
-
+</code></pre>
 같은 타입의 변수는 콤마(,)를 이용해서 한꺼번에 선언 가능
 
