@@ -1,7 +1,8 @@
 package book.java.chap3;
 
-class Ex4 
+class ChangeNum 
 {
+	//356을 300으로 나타내기
 	public static void main(String[] args) 
 	{
 		int value = 356;

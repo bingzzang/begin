@@ -1,6 +1,6 @@
 package book.java.chap4;
 
-class Ex4 
+class StarEx 
 {
 	//for문 이용
 	//별찍기
@@ -25,7 +25,7 @@ class Ex4
 
 	public static void main(String[] args) 
 	{
-		Ex4 e4 = new Ex4();
+		StarEx e4 = new StarEx();
 		e4.m1();
 	}
 }

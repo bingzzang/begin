@@ -1,6 +1,6 @@
 package book.java.chap4;
 
-class Ex3 
+class Equation 
 {
 	//중첩for문 이용
 		//방정식 4x+5y = 60의 모든 해
@@ -21,7 +21,7 @@ class Ex3
 
 	public static void main(String[] args) 
 	{
-		Ex3 e3 = new Ex3();
+		Equation e3 = new Equation();
 		e3.m1();
 	}
 }

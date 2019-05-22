@@ -1,6 +1,6 @@
 package book.java.chap4;
 
-class Ex2 
+class Dice 
 {
 
 	//두 개의 주사위 (눈1, 눈2)
@@ -23,7 +23,7 @@ class Ex2
 
 	public static void main(String[] args) 
 	{
-		Ex2 e2 = new Ex2();
+		Dice e2 = new Dice();
 		e2.m1();
 	}
 }

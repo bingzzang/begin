@@ -1,6 +1,6 @@
 package book.java.chap4;
 
-class Ex1 
+class Sum3Multiple 
 {
 	//1부터 100까지의 정수 중에서 3의 배수의 총합을 구하는 코드.
 
@@ -18,7 +18,7 @@ class Ex1
 
 	public static void main(String[] args) 
 	{
-		Ex1 e1 = new Ex1();
+		Sum3Multiple e1 = new Sum3Multiple();
 		e1.m1();
 	}
 }

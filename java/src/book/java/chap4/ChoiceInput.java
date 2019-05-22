@@ -2,7 +2,7 @@ package book.java.chap4;
 
 import java.util.*;
 
-class Ex5 
+class ChoiceInput 
 {
 	// while문과 scanner이용
 	//키보드로부터 입력된 데이터 -> 예금, 출금, 조회, 종료 기능을 제공하는 코드
@@ -52,7 +52,7 @@ class Ex5
 	}
 	public static void main(String[] args)
 	{
-		Ex5 e5 = new Ex5();
+		ChoiceInput e5 = new ChoiceInput();
 		e5.m1();
 	}
 }

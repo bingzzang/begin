@@ -1,6 +1,6 @@
 package book.java.chap3;
 
-class Ex5 
+class TrapezoidArea 
 {
 	
 	public static void main(String[] args) 

@@ -1,6 +1,6 @@
 package book.java.chap3;
 
-class Ex1
+class OperatorEx
 {
 	public static void main(String[] args) 
 	{
