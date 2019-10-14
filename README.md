@@ -6,6 +6,24 @@
 
 ## Chapter 1
 
+### JDK
+
+JDK (Java Development Kit) : Oracle이 배포하는 JAVA 언어 개발 환경
+
+
+
+### PATH 환경설정
+
+###### WINDOW 10
+
+[시스템] - [고급 시스템 설정] -  고급 - 환경변수
+
+- JAVA_HOME = C:\Program Files\Java\jdk-10.0.2(jdk설치경로)
+
+- Path = %JAVA_HOME%\bin;
+- classpath = . 
+
+
 ### 1. JAVA의 특징
 
 * 이식성이 높은 언어 : 자바 실행 환경(JRE : Java Runtime Environmnet)이 설치되어 있는 모든 운영체제에서 실행 가능
