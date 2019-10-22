@@ -5,7 +5,7 @@ public class CarEx {
 	double gas = 32.3;
 	
 	void show(int num, double gas) {
-		System.out.println("차량 번호 : "+this.num);	//'자기 자신'의 필드 
+		System.out.println("차량 번호 : "+this.num);	//'자기 자신'의 필드  -> carEx에 선언된 전역변수
 		System.out.println("연료 양 : "+this.gas);
 	}
 	void show2(int num, double gas) {
