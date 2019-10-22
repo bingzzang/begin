@@ -1,4 +1,4 @@
-package sum;
+package app.sum;
 
 public class OneToHun {
 

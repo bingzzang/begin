@@ -1,4 +1,4 @@
-package basic;
+package basic.book.vol1;
 
 class Sample{
     public static void main(String[] args){

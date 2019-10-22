@@ -1,4 +1,4 @@
-package cal;
+package app.cal;
 
 import java.util.ArrayList;
 import java.util.Scanner;

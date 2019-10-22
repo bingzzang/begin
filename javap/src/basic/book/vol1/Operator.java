@@ -1,4 +1,4 @@
-package basic;
+package basic.book.vol1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
