@@ -5,7 +5,7 @@ public class TivoliEx {
 
 		public static void main(String[] args) {
 			Tivoli t = new Tivoli();
-//			t.show();
+			t.show();
 			
 			Tivoli cus = new Tivoli("navy", 3293, 40.5);
 			cus.show();
