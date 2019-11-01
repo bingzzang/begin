@@ -1,14 +1,15 @@
 package basic.book.vol2;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Filereader {
 
 	public static void main(String[] args) {
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("test1.txt"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\Metanet\\git\\begin\\javap\\test1.txt"),"UTF8"));
 			
 			String str1 = br.readLine();
 			String str2 = br.readLine();
