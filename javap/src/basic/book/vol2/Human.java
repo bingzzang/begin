@@ -30,4 +30,7 @@ public class Human {
 		System.out.println(name+"이(가) "+job+"이 되었습니다.");
 	}
 	
+	final void breath() {
+		System.out.println("숨을 쉰다");
+	}
 }
