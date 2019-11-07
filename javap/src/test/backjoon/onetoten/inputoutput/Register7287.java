@@ -1,4 +1,4 @@
-package test.backjoon.one.inputoutput;
+package test.backjoon.onetoten.inputoutput;
 
 public class Register7287 {
 
