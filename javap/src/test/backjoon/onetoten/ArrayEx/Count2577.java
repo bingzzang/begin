@@ -18,8 +18,6 @@ public class Count2577 {
 			int tot = a*b*c;
 //			System.out.println(tot);
 			
-			
-			/*
 			while(tot>0) {
 				count[tot % 10]++;
 				tot /= 10;
@@ -27,7 +25,7 @@ public class Count2577 {
 			
 			for(int i=0;i<count.length;++i) {
 				System.out.println(count[i]);
-			}*/
+			}
 		} catch (IOException e) {
 			// TODO: handle exception
 		}
