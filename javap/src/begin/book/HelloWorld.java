@@ -1,4 +1,4 @@
-package begin.book.chap2_3;
+package begin.book;
 
 public class HelloWorld {
 
