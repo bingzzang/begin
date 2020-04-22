@@ -43,8 +43,8 @@ public class Star {
 	
 	public static void main(String[] args) {
 		Star st = new Star();
-//		st.star1();
-//		st.star2();
+		st.star1();
+		st.star2();
 		st.star3();
 	}
 
