@@ -27,8 +27,10 @@ public class Lotto {
 		
 		System.out.println(" ");
 		
-		Arrays.sort(selectNum);
+		
+		
 		Arrays.sort(winNum);
+		
 		boolean result = Arrays.equals(selectNum,winNum);
 		System.out.print("당첨 여부 : ");
 		if(result) {
