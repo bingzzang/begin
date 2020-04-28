@@ -1,24 +1,37 @@
 package test.backjoon.onetoten.ArrayEx;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Average4344 {
 
-	public static void main(String[] args) {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			int c= Integer.parseInt(br.readLine());
-			String lines []= new String[c];
-			
-			for(int i=0;i<c;i++) {
-				lines[i] = br.readLine();
-			}
-		} catch (IOException e) {
-			// TODO: handle exception
-		}
+	public static void main(String[] args){
 		
-	}
+		Scanner sc = new  Scanner(System.in);
+		int c = sc.nextInt();
+        int n, total, count;
+        double avg;
+        int scores[] = new int[1000];
+        
+        for (int i = 0; i < c; ++i) {
+            n = sc.nextInt();
+            total = 0;
+            count = 0;
+            for (int j = 0; j < n; ++j) {
+                scores[j] = sc.nextInt();
+                total += scores[j];
+            }
+            avg = (double)total / n;
+             
+            for (int j = 0; j < n; ++j) {
+                if (scores[j] > avg) {
+                    count++;
+                }
+            }
+            
+            System.out.printf("%.3f", 100.0 * count / n);
+            System.out.println("%");
+        }
+        sc.close();
+    }
 
 }

@@ -1,41 +1,36 @@
 package test.backjoon.onetoten.ArrayEx;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Average1546 {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		int n = sc.nextInt();	//시험 본 과목의 개수
-		int score[] = new int[n];	//점수를 담을 배열
-		int max = 0;
-		double newscore[] = new double[n];
-		double avg= 0;
-		int sum = 0;
+		//과목수
+		int n = Integer.parseInt(br.readLine());
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int subs[] = new int[n];
 		
-		if(n>=0 && n<=1000) {
-			for(int i=0;i<score.length;i++) {
-				score[i] = sc.nextInt();
-			}
-		}	
-			for(int k=0;k<score.length;k++) {
-				if(score[k]>=0 && score[k]<=100) {
-					if(score[k]>max) {
-						max = score[k];
-					}	
-				}
-			}
-			for(int m=0;m<score.length;m++) {
-				newscore[m] = ((double)score[m]/(double)max)*100;
-			}
-			
-			for(int a=0;a<newscore.length;a++) {
-				sum += newscore[a];
-			}
-			avg = (double)sum/(double)n;
-			System.out.println(avg);
+		int max = 0 ;
 		
+		for(int i=0;i<subs.length;i++) {
+			subs[i] = Integer.parseInt(st.nextToken());
+			if(subs[i]> max) max = subs[i];
+		}
+		double subs2[] = new double[n];
+		
+		double sum = 0.0;
+		for(int i=0;i<subs.length;i++) {
+			subs2[i] = (double)subs[i]/(double)max *(double) 100;
+			sum +=subs2[i];
+		}
+		double avg = sum/(double) n;
+		System.out.println(avg);
 	}
 
 }
