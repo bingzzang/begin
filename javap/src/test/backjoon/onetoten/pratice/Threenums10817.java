@@ -1,4 +1,4 @@
-package test.backjoon.onetoten.ifex;
+package test.backjoon.onetoten.pratice;
 
 import java.io.BufferedReader;
 import java.io.IOException;

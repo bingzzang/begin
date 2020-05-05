@@ -37,7 +37,7 @@ public class Record {
 			}else if(choice == 3) {
 				delete();
 			}else if(choice == 4){
-				System.exit(1);
+				System.exit(0);
 			}else {
 				System.out.println("다시 입력하세요.");
 				init();
