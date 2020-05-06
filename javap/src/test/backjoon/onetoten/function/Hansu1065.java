@@ -9,7 +9,16 @@ public class Hansu1065 {
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
+		//기준 수 입력
 		int n = Integer.parseInt(br.readLine());
+		
+		//개수
+		int count = 0;
+		
+		//한수
+		int hs = 0;
+		
+		
 	}
 
 }

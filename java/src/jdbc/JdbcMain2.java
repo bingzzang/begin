@@ -9,14 +9,10 @@ import java.util.Date;
 
 public class JdbcMain2 {
 	
-	public static final int YES = 1;
-	public static final int NO = 0;
-	public static final int EXCEP = -1;
-
 	String tblname = "TESTDB";
 	
-	String url = "jdbc:oracle:thin:@localhost:1521:java";
-	
+//	String url = "jdbc:oracle:thin:@localhost:1521:java";
+	String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	Connection con;
 	Statement stmt;
 	
@@ -24,26 +20,35 @@ public class JdbcMain2 {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
-			con = DriverManager.getConnection(url, "bing", "930303");
+			con = DriverManager.getConnection(url, "bing", "bing");
+//			con = DriverManager.getConnection(url, "bing", "930303");
 			stmt = con.createStatement();
+			System.out.println("성공");
 		} catch (ClassNotFoundException cnfe) {
 			// TODO: handle exception
+			System.err.println(cnfe);
+			cnfe.getStackTrace();
 		} catch (SQLException se) {
-			
+			se.getStackTrace();
 		}
 	}
 	
 	//테이블이 존재하는지
 	int isTable(){ // 1:존재, 0:존재x, -1:예외
-		String sql = "select * from tab where tblname ='"+tblname+"'";
+		
+		String sql = "select * from tab where tname ='"+ tblname +"'";
 		ResultSet rs = null;
 		
 		try {
 			rs = stmt.executeQuery(sql);
-			if(rs.next()) return YES;
-			else return NO;
+			if(rs.next()) {
+				return JdbcMain2State.YES;
+			}else {
+				return JdbcMain2State.NO;
+			} 
 		}catch(SQLException se) {
-			return EXCEP;
+			System.out.println(se);
+			return JdbcMain2State.EXCEP;
 		}
 	}
 	
@@ -151,26 +156,27 @@ public class JdbcMain2 {
 	
 	public static void main(String[] args) {
 		JdbcMain2 jm = new JdbcMain2();
-		int seq = jm.isTable();
 		
-		if(seq == YES) {
-			jm.droptbl();
-		}else if(seq== NO) {
-			jm.createtbl();
-		}else {
-			System.out.println("에러");
-		}
+//		if(jm.isTable() == JdbcMain2State.YES) {
+//		//	jm.droptbl();
+//		}else if(jm.isTable()== JdbcMain2State.NO) {
+//			jm.createtbl();
+//		}else {
+//			System.out.println("에러");
+//		}
 		
-//		jm.insert(10, "해롱이");
-//		jm.insert(20, "패트");
-//		jm.insert(30, "매트");
-//		jm.insert(40, "에이");
-//		jm.insert(50, "비");
-//		jm.insert(60, "씨");
-//		
-//		jm.update(40, "꿀꿀");
-//		jm.delete("비");
-//		jm.delete(60);
+		jm.insert(10, "해롱이");
+		jm.insert(20, "패트");
+		jm.insert(30, "매트");
+		jm.insert(40, "에이");
+		jm.insert(50, "비");
+		jm.insert(60, "씨");
+		
+		jm.update(40, "꿀꿀");
+		jm.delete("비");
+		jm.delete(60);
+		
+		jm.closeAll();
 	}
 
 }
