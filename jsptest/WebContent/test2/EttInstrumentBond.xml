@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="EttInstrumentBond">
+
+    <!-- ########################### typeAlias Definition ########################### -->
+    <typeAlias alias="bondInfo" type="com.fistglobal.riskcraft.market.batch.domain.instrument.BondInfo"/>
+    <typeAlias alias="bondEtcInfo" type="com.fistglobal.riskcraft.market.batch.domain.instrument.BondEtcInfo"/>
+    <typeAlias alias="bondData" type="com.fistglobal.riskcraft.market.batch.domain.instrument.BondData"/>
+    <typeAlias alias="bondCoupon" type="com.fistglobal.riskcraft.market.batch.domain.instrument.BondCoupon"/>
+
+     <!-- ########################### sql       Definition ########################### -->
+     <!-- ########################### resultMap Definition ########################### -->
+     <!-- ########################### CRUD      Definition ########################### -->
+     <select id="getBondInfoList" parameterClass="map" resultClass="BondInfo">
+		SELECT
+			 A.CODE  							as key
+			,A.CODE  							as instrumentCode
+			,A.NAME 							as instrumentName
+			,A.ISSUECODE 						as issuerCd
+			,A.ISSUEDATE 						as issueDt
+			,A.REPAYDATE 						as mrtyDt
+			,A.ISSUEAMOUNT 						as principal
+			,DECODE(LENGTH(A.MONEYTYPE),8,SUBSTR(A.MONEYTYPE,6,3),A.MONEYTYPE) as ccyCd
+			,NVL(B.CD,A.REPAYIND)				as redemptionTypeCd
+			,NVL(C.CD,TO_CHAR(A.INTERESTMONTH))	as couponFreqCd
+			,NVL(D.CD,A.INTERESTTYPE) 			as couponTypeCd
+			,NVL(E.CD,TO_CHAR(A.INTERESTMONTH)) as couponCompFreqCd
+			,A.FIRSTINTERESTDATE 				as firstCouponDt
+			,null 								as lastCouponDt
+			,nvl(A.FACEINTEREST,0)/100			as coupon
+	    	,NVL(F.CD, CASE WHEN A.FLOWIND='11' THEN #ncrBondTypePeLq# ELSE #normalBondCd# END)
+	    	                                    as issueTypeCode
+<!-- 
+			,CASE
+				WHEN A.ISSUETYPE = '1' OR A.FLOWIND IS NOT NULL THEN '$ncrBondTypePeLq$'
+				ELSE '$normalBondCd$'
+			 END								as issueTypeCode
+ -->
+			,NVL(G.CD, 'G')||DECODE(REFIXFLOOR, null, '', 0, '', 'R')            as rightTypeCode
+			,NVL(DECODE(OPTIONIND,'1','C','2','P','3','CP'), '0')                as optionType
+			,'N'                                as virtualBondYn
+			,TO_CHAR(ADD_MONTHS(TO_DATE(A.REPAYDATE, 'YYYYMMDD'), -(A.REDEMPTIONCOUNT-1)*A.REDEMPTIONMONTH), 'YYYYMMDD') AS firstRedemptionDt
+			,A.REDEMPTIONMONTH                  as redemptionFreqInMonth
+		FROM
+		$rasAccount$.IF_BOND_INFO 	A,
+		SYS_CD_MAP B,
+		SYS_CD_MAP C,
+		SYS_CD_MAP D,
+		SYS_CD_MAP E,
+		SYS_CD_MAP F,
+		SYS_CD_MAP G
+		WHERE
+		    A.REPAYIND      = B.SRC_CD (+)
+		AND TO_CHAR(A.INTERESTMONTH) = C.SRC_CD (+)
+		AND A.INTERESTTYPE  = D.SRC_CD (+)
+		AND TO_CHAR(A.INTERESTMONTH) = E.SRC_CD (+)
+		AND	CASE WHEN A.STOCKIND = '1' THEN '00'
+			     ELSE A.RIGHTTYPE
+			END	          	= G.SRC_CD (+)
+		AND B.TYPE 		(+) = #redemptionCdType#
+		AND C.TYPE 		(+) = #interestMonthCdType#
+		AND D.TYPE 		(+) = #interestTypeCdType#
+		AND E.TYPE 		(+) = #interestMonthCompCdType#
+		AND F.TYPE		(+) = #issueTypeCdType# AND F.SRC_CD(+) = A.ISSUETYPE
+		AND G.TYPE		(+) = #rightTypeCdType#
+		AND (A.INTERESTTYPE BETWEEN '11' AND '19' OR A.INTERESTTYPE IN ('21','29', 'FISU','SU', 'FIFL','SUFL') )
+		AND A.TDATE 		= #processDate#
+	UNION ALL
+		SELECT
+			 A.CODE  							as key
+			,A.CODE  							as instrumentCode
+			,A.NAME 							as instrumentName
+			,A.ISSUECODE 						as issuerCd
+			,A.ISSUEDATE 						as issueDt
+			,A.REPAYDATE 						as mrtyDt
+			,A.ISSUEAMOUNT 						as principal
+			,DECODE(LENGTH(A.MONEYTYPE),8,SUBSTR(A.MONEYTYPE,6,3),A.MONEYTYPE) as ccyCd
+			,'1'								as redemptionTypeCd
+			,NVL(C.CD,'A')						as couponFreqCd
+			,NVL(D.CD,'1') 						as couponTypeCd
+			,NVL(E.CD,'A') 						as couponCompFreqCd
+			,A.FIRSTINTERESTDATE 				as firstCouponDt
+			,null 								as lastCouponDt
+			,nvl(A.FACEINTEREST,0)/100			as coupon
+			,'VB'                               as issueTypeCode
+<!-- 
+			,CASE
+				WHEN A.ISSUETYPE = '1' OR A.FLOWIND IS NOT NULL THEN '$ncrBondTypePeLq$'
+				ELSE '$normalBondCd$'
+			 END								as issueTypeCode
+ -->
+			,'G'                                as rightTypeCode
+			,NVL(DECODE(OPTIONIND,'1','C','2','P'), '0')                as optionType
+			,'Y'                                as virtualBondYn
+			,NULL                               as firstRedemptionDt
+			,A.REDEMPTIONMONTH                  as redemptionFreqInMonth
+		FROM
+		$rasAccount$.IF_OTC_VIRTUALBOND_INFO 	A,
+		SYS_CD_MAP B,
+		SYS_CD_MAP C,
+		SYS_CD_MAP D,
+		SYS_CD_MAP E
+		WHERE
+		    A.REPAYIND      = B.SRC_CD (+)
+		AND TO_CHAR(A.INTERESTMONTH) = C.SRC_CD (+)
+		AND A.INTERESTTYPE  = D.SRC_CD (+)
+		AND TO_CHAR(A.INTERESTMONTH) = E.SRC_CD (+)
+		AND B.TYPE 		(+) = #redemptionCdType#
+		AND C.TYPE 		(+) = #interestMonthCdType#
+		AND D.TYPE 		(+) = #interestTypeCdType#
+		AND E.TYPE 		(+) = #interestMonthCompCdType#
+		AND A.INTERESTTYPE BETWEEN '11' AND '19'
+		AND A.TDATE 		= #processDate#
+     </select>
+
+     <select id="getBondDataList" parameterClass="map" resultClass="bondData">
+        SELECT #processDate# AS dt,
+               C.INSTRUMENT_CD  AS instrumentCode ,
+               NVL ( B.KBPCLASS , (SELECT NVL(X.ISSUER_RATING_CD, #ett_instrument_bond_default_ircCd# )
+                                     FROM BOND_DATA X
+                                    WHERE X.DT = (SELECT MAX(Y.DT) FROM CALENDAR Y WHERE Y.BDAY_YN='Y' AND Y.DT &lt; #processDate#) 
+                                      AND X.INSTRUMENT_CD=C.INSTRUMENT_CD) ) AS issuerRatingCd,
+               NVL ( B.EXTERNALRATEID, (SELECT X.CR_GRD_CD
+                                          FROM BOND_DATA X
+                                         WHERE X.DT = (SELECT MAX(Y.DT) FROM CALENDAR Y WHERE Y.BDAY_YN='Y' AND Y.DT &lt; #processDate#) 
+                                           AND X.INSTRUMENT_CD=C.INSTRUMENT_CD)) AS	creditRatingCode,
+               NVL( B.NEXTPAYDATE, (SELECT X.NEXT_COUPON_PAY_DT
+                                      FROM BOND_DATA X
+                                     WHERE X.DT = (SELECT MAX(Y.DT) FROM CALENDAR Y WHERE Y.BDAY_YN='Y' AND Y.DT &lt; #processDate#) 
+                                       AND X.INSTRUMENT_CD=C.INSTRUMENT_CD))  AS nextCouponPayDt,
+               NVL( B.FACEINTEREST / 100 , (SELECT X.NEXT_COUPON
+                                              FROM BOND_DATA X
+                                             WHERE X.DT = (SELECT MAX(Y.DT) FROM CALENDAR Y WHERE Y.BDAY_YN='Y' AND Y.DT &lt; #processDate#) 
+                                               AND X.INSTRUMENT_CD=C.INSTRUMENT_CD)) AS nextCoupon
+          FROM (SELECT CODE, TDATE, KBPCLASS,ISSUECODE,EXTERNALRATEID,FACEINTEREST,NEXTPAYDATE
+                  FROM $rasAccount$.IF_BOND_INFO
+                 WHERE (INTERESTTYPE BETWEEN '11' AND '19' OR INTERESTTYPE IN ('21','29', 'FISU','SU', 'FIFL','SUFL'))) B,
+               BOND_INFO C
+         WHERE B.TDATE(+)= #processDate#
+           AND B.CODE(+) = C.INSTRUMENT_CD
+           AND C.MRTY_DT &gt;= #processDate# AND C.VT_BOND_YN = 'N'
+         UNION ALL
+		SELECT A.TDATE AS dt,
+               A.CODE  AS instrumentCode ,
+               A.KBPCLASS AS issuerRatingCd,
+			   A.EXTERNALRATEID AS	creditRatingCode,
+			   A.NEXTPAYDATE  AS nextCouponPayDt,
+               A.FACEINTEREST / 100  AS nextCoupon
+          FROM $rasAccount$.IF_OTC_VIRTUALBOND_INFO A
+         WHERE A.TDATE 		= #processDate#
+     <!--
+     	SELECT
+     		 B.TDATE		as	dt
+     		,B.CODE		as	instrumentCode
+     		,A.KBPCLASS	as	issuerRatingCd
+     	FROM
+     	$rasAccount$.IF_BOND_INFO A,
+     	$rasAccount$.IF_BOND_DATA B
+     	WHERE
+     		A.CODE = B.CODE
+     	AND A.TDATE = B.TDATE
+		AND A.INTERESTTYPE BETWEEN '11' AND '15'
+     	AND	A.TDATE = #processDate#  -->
+     </select>
+     <insert id="infoInsert" parameterClass="bondInfo">
+         INSERT INTO BOND_INFO
+         (
+			 INSTRUMENT_CD
+			,INSTRUMENT_NM
+			,ISSUER_CD
+			,ISSUE_DT
+			,MRTY_DT
+			,PRINCIPAL
+			,CCY_CD
+			,REDEMPTION_TYPE_CD
+			,COUPON_FREQ_CD
+			,COUPON_TYPE_CD
+			,COUPON_COMP_FREQ_CD
+			,FIRST_COUPON_DT
+			,LAST_COUPON_DT
+			,COUPON
+			,ISSUE_TYPE_CD
+			,RIGHT_TYPE_CD
+			,OPTION_TYPE_CD
+			,VT_BOND_YN
+			,FIRST_REDEMPTION_DT
+			,REDEMPTION_FREQ_IN_MONTH
+			,CRTN_USER_ID
+			,CRTN_TIME
+         )
+         VALUES
+         (
+			 #instrumentCode#
+			,#instrumentName#
+			,#issuerCd#
+			,#issueDt#
+			,#mrtyDt#
+			,#principal#
+			,#ccyCd#
+			,#redemptionTypeCd#
+			,#couponFreqCd#
+			,#couponTypeCd#
+			,#couponCompFreqCd#
+			,#firstCouponDt#
+			,#lastCouponDt#
+			,#coupon#
+			,#issueTypeCode#
+			,#rightTypeCode#
+			,#optionType#
+			,#virtualBondYn#
+			,#firstRedemptionDt#
+			,#redemptionFreqInMonth#
+			,#userId#
+			,sysDate
+         )
+     </insert>
+     <update id="infoUpdate" parameterClass="bondInfo">
+         UPDATE BOND_INFO SET
+			 INSTRUMENT_NM                    =	#instrumentName#
+			,ISSUER_CD                        =	#issuerCd#
+			,ISSUE_DT                         =	#issueDt#
+			,MRTY_DT                          =	#mrtyDt#
+			,PRINCIPAL						  = #principal#
+			,CCY_CD                           =	#ccyCd#
+			,REDEMPTION_TYPE_CD               =	#redemptionTypeCd#
+			,COUPON_FREQ_CD                   =	#couponFreqCd#
+			,COUPON_TYPE_CD                   =	#couponTypeCd#
+			,COUPON_COMP_FREQ_CD              =	#couponCompFreqCd#
+			,FIRST_COUPON_DT                  =	#firstCouponDt#
+			,LAST_COUPON_DT                   =	#lastCouponDt#
+			,COUPON                           =	#coupon#
+			,ISSUE_TYPE_CD					  = #issueTypeCode#
+			,RIGHT_TYPE_CD					  = #rightTypeCode#
+			,OPTION_TYPE_CD					  = #optionType#
+			,VT_BOND_YN						  = #virtualBondYn#
+			,FIRST_REDEMPTION_DT              = #firstRedemptionDt#
+			,REDEMPTION_FREQ_IN_MONTH         = #redemptionFreqInMonth#
+			,LAST_MODIFY_USER_ID              =	#userId#
+			,LAST_MODIFY_TIME                 =	sysDate
+         WHERE
+         INSTRUMENT_CD = #instrumentCode#
+     </update>
+     <insert id="dataInsert" parameterClass="bondData">
+     	INSERT INTO BOND_DATA (DT,INSTRUMENT_CD,ISSUER_RATING_CD,CR_GRD_CD,NEXT_COUPON_PAY_DT, NEXT_COUPON, CRTN_USER_ID,CRTN_TIME )
+     	VALUES (#dt#,#instrumentCode#,#issuerRatingCd#,#creditRatingCode#,#nextCouponPayDt#, #nextCoupon#, #userId#,sysDate )
+     </insert>
+
+	<select id="getBondEtcInfoList" parameterClass="map" resultClass="bondEtcInfo">
+		SELECT
+			 CODE  							as key
+			,CODE  							as instrumentCode
+			,TARGETCODE                     as underlyingAssetCode
+			,STRIKESTARTDATE                as convertStartDate
+			,STRIKEENDDATE                  as convertEndDate
+			,CASE WHEN STRIKEPRICE=0 THEN 0
+			      ELSE ISSUEAMOUNT * (STRIKERATE / 100) / STRIKEPRICE
+			 END                            as convertRatio
+			,STRIKEPRICE                    as strike
+			,NVL(B.CD, OPTIONIND)           as optionTypeCode
+			,REDEMPTIONRATE / 100           as redemptionRate
+			,ISSUEAMOUNT * CALLRATIO / 100  as callExercisePrice
+			,CALLSTART                      as callStartDate
+			,CALLEND                        as callEndDate
+			,ISSUEAMOUNT * PUTRATIO / 100   as putExercisePrice
+			,PUTSTART                       as putStartDate
+			,PUTEND                         as putEndDate
+			,REFIXSTARTDATE                 as refixStartDate
+			,NVL(C.CD, TO_CHAR(REFIXFREQUENCY))     as refixFrequencyCode
+			,REFIXFLOOR / 100               as refixFloor
+		FROM
+		$rasAccount$.IF_BOND_INFO A,
+		SYS_CD_MAP B,
+		SYS_CD_MAP C
+		WHERE
+		    (INTERESTTYPE BETWEEN '11' AND '19' OR INTERESTTYPE IN ('FISU', 'SU')) AND RIGHTTYPE IN ('10', '21', '22', '31', '32')
+		AND A.OPTIONIND   = B.SRC_CD(+) AND B.TYPE(+)= #optionType#
+		AND TDATE 		= #processDate#
+		AND TO_CHAR(A.REFIXFREQUENCY) = C.SRC_CD(+) AND C.TYPE(+) = #interestMonthCdType#
+		<!-- CALLABLE / PUTTABLE 추가 -->
+		UNION ALL
+		SELECT
+			 CODE  							as key
+			,CODE  							as instrumentCode
+			,TARGETCODE                     as underlyingAssetCode
+			,STRIKESTARTDATE                as convertStartDate
+			,STRIKEENDDATE                  as convertEndDate
+			,CASE WHEN STRIKEPRICE=0 THEN 0
+			      ELSE ISSUEAMOUNT * (STRIKERATE / 100) / STRIKEPRICE
+			 END                            as convertRatio
+			,STRIKEPRICE                    as strike
+			,NVL(B.CD, OPTIONIND)           as optionTypeCode
+			,REDEMPTIONRATE / 100           as redemptionRate
+			,ISSUEAMOUNT * CALLRATIO / 100  as callExercisePrice
+			,CALLSTART                      as callStartDate
+			,CALLEND                        as callEndDate
+			,ISSUEAMOUNT * PUTRATIO / 100   as putExercisePrice
+			,PUTSTART                       as putStartDate
+			,PUTEND                         as putEndDate
+			,REFIXSTARTDATE                 as refixStartDate
+			,NVL(C.CD, TO_CHAR(REFIXFREQUENCY))     as refixFrequencyCode
+			,REFIXFLOOR / 100               as refixFloor
+		FROM
+		$rasAccount$.IF_BOND_INFO A,
+		SYS_CD_MAP B,
+		SYS_CD_MAP C
+		WHERE
+		    (INTERESTTYPE BETWEEN '11' AND '19' OR INTERESTTYPE IN ('FISU', 'SU')) AND A.OPTIONIND IN ('1','2') AND (A.RIGHTTYPE IS NULL OR A.RIGHTTYPE NOT IN ('10', '21', '22', '31', '32') )
+		AND A.OPTIONIND   = B.SRC_CD(+) AND B.TYPE(+)= #optionType#
+		AND TDATE 		= #processDate#
+		AND TO_CHAR(A.REFIXFREQUENCY) = C.SRC_CD(+) AND C.TYPE(+) = #interestMonthCdType#
+	</select>
+
+	<update id="updateBondEtcInfo" parameterClass="bondEtcInfo">
+		UPDATE BOND_ETC_INFO
+		   SET   UNDERLYING_ASSET_CD = #underlyingAssetCode#
+				,CONVERT_STRT_DT     = #convertStartDate#
+				,CONVERT_END_DT      = #convertEndDate#
+				,CONVERT_RATIO       = #convertRatio#
+				,STRIKE              = #strike#
+				,OPTION_TYPE_CD      = #optionTypeCode#
+				,REDEMPTION_RT       = #redemptionRate#
+				,CALL_EXERCISE_PRICE = #callExercisePrice#
+				,CALL_STRT_DT        = #callStartDate#
+				,CALL_END_DT         = #callEndDate#
+				,PUT_EXERCISE_PRICE  = #putExercisePrice#
+				,PUT_STRT_DT         = #putStartDate#
+				,PUT_END_DT          = #putEndDate#
+				,REFIX_STRT_DT       = #refixStartDate#
+				,REFIX_FREQ_CD       = #refixFrequencyCode#
+				,REFIX_FLOOR         = #refixFloor#
+				,LAST_MODIFY_USER_ID = #userId#
+				,LAST_MODIFY_TIME    = sysDate
+		 WHERE INSTRUMENT_CD = #instrumentCode#
+	</update>
+
+	<insert id="insertBondEtcInfo" parameterClass="bondEtcInfo">
+         INSERT INTO BOND_ETC_INFO
+         (   INSTRUMENT_CD
+			,UNDERLYING_ASSET_CD
+			,CONVERT_STRT_DT
+			,CONVERT_END_DT
+			,CONVERT_RATIO
+			,STRIKE
+			,OPTION_TYPE_CD
+			,REDEMPTION_RT
+			,CALL_EXERCISE_PRICE
+			,CALL_STRT_DT
+			,CALL_END_DT
+			,PUT_EXERCISE_PRICE
+			,PUT_STRT_DT
+			,PUT_END_DT
+			,REFIX_STRT_DT
+			,REFIX_FREQ_CD
+			,REFIX_FLOOR
+			,CRTN_USER_ID
+			,CRTN_TIME
+			,LAST_MODIFY_USER_ID
+			,LAST_MODIFY_TIME
+         )
+         VALUES
+         (   #instrumentCode#
+			,#underlyingAssetCode#
+			,#convertStartDate#
+			,#convertEndDate#
+			,#convertRatio#
+			,#strike#
+			,#optionTypeCode#
+			,#redemptionRate#
+			,#callExercisePrice#
+			,#callStartDate#
+			,#callEndDate#
+			,#putExercisePrice#
+			,#putStartDate#
+			,#putEndDate#
+			,#refixStartDate#
+			,#refixFrequencyCode#
+			,#refixFloor#
+			,#userId#
+			,sysDate
+			,#userId#
+			,sysDate
+         )
+	</insert>
+
+	<select id="getBondCouponList" parameterClass="map" resultClass="bondCoupon">
+		SELECT A.CODE            AS instrumentCode,
+		       A.COUPONAPPLYDATE AS couponApplyDate,
+		       A.COUPON/100      AS coupon
+		  FROM $rasAccount$.IF_BOND_COUPON A
+		 WHERE A.TDATE = #processDate#
+	</select>
+
+	<delete id="deleteBondCoupon" parameterClass="map">
+		DELETE FROM BOND_COUPON
+	</delete>
+
+	<insert id="insertBondCoupon" parameterClass="bondCoupon">
+		INSERT INTO BOND_COUPON(INSTRUMENT_CD, COUPON_APPLY_DT, COUPON) VALUES (#instrumentCode#, #couponApplyDate#, #coupon#)
+	</insert>
+</sqlMap>
+
