@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<context-param>
+		<description>로깅 여부</description>
+		<param-name>logEnabled</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<context-param>
+		<description>디버깅 레벨</description>
+		<param-name>debugLevel</param-name>
+		<param-value>5</param-value>
+	</context-param>
+	
+</web-app>
