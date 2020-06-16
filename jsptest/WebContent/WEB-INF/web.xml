@@ -26,4 +26,81 @@
 		<error-code>500</error-code>
 		<location>/error/error500.jsp</location>
 	</error-page>
+	
+	<servlet>
+  	<servlet-name>now</servlet-name>
+  	<servlet-class>project.example.NowServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>now</servlet-name>
+  	<url-pattern>/now</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>SimpleController</servlet-name>
+  	<servlet-class>mvc.simple.controller.SimpleController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>SimpleController</servlet-name>
+  	<url-pattern>/simple</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ControllerUsingFile</servlet-name>
+  	<servlet-class>mvc.controller.ControllerUsingFile</servlet-class>
+		<init-param>
+			<param-name>configFile</param-name>
+			<param-value>/WEB-INF/commandHandler.properties</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ControllerUsingFile</servlet-name>
+		<url-pattern>/controllerUsingFile</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ControllerUsingURI</servlet-name>
+		<servlet-class>mvc.controller.ControllerUsingURI</servlet-class>
+		<init-param>
+			<param-name>configFile</param-name>
+			<param-value>
+                /WEB-INF/commandHandlerURI.properties
+            </param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ControllerUsingURI</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+  <!-- 
+  <servlet>
+  	<servlet-name>DBCPInit</servlet-name>
+  	<servlet-class>project.jdbc.DBCPInit</servlet-class>
+  	<init-param>
+  		<param-name>jdbcDriver</param-name>
+  		<param-value>com.mysql.jdbc.Driver</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>jdbcUrl</param-name>
+  		<param-value>jdbc:mysql://127.0.0.1:3306/bingtest?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=utf8</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>dbUser</param-name>
+  		<param-value>bing</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>dbPass</param-name>
+  		<param-value>bing</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>poolName</param-name>
+  		<param-value>bingtest</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet> -->
 </web-app>
