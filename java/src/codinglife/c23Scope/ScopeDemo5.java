@@ -1,4 +1,4 @@
-package codinglife;
+package codinglife.c23Scope;
 
 public class ScopeDemo5 {
 
