@@ -1,4 +1,4 @@
-package codinglife.c18;
+package codinglife.c18Method;
 
 public class MethodDemo01 {
 

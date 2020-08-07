@@ -1,10 +1,7 @@
-package codinglife.c22;
+package codinglife.c21Object;
 
 public class Calculator {
 
-	static double PI = 3.14;
-	
-	static int base = 0;
 	int left, right;
 	
 	public void setOperands(int left, int right) {
@@ -13,13 +10,10 @@ public class Calculator {
 	}
 	
 	public void sum() {
-		System.out.println(this.left + this.right + base);
+		System.out.println(this.left+this.right);
 	}
 	
 	public void avg() {
-		System.out.println((this.left + this.right + base) / 2);
+		System.out.println((this.left+this.right)/2);
 	}
-	
 }
-
-

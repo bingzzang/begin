@@ -1,4 +1,4 @@
-package codinglife.c18;
+package codinglife.c18Method;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
