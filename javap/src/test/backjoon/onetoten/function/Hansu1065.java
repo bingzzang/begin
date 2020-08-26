@@ -8,17 +8,24 @@ public class Hansu1065 {
 
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n;
 		
-		//기준 수 입력
-		int n = Integer.parseInt(br.readLine());
-		
-		//개수
+		// N입력
+		do {
+			n = Integer.parseInt(br.readLine());
+		} while (n<1 || n>1000);
+	
+		//한수의 개수
 		int count = 0;
 		
 		//한수
-		int hs = 0;
+		int x;
 		
+		int nums[] = new int[3];
 		
+		for(int i=1;i<n;i++) {
+			
+		}
 	}
 
 }
