@@ -19,7 +19,7 @@ public class DateAndTime {
 	public static String findDay(int month, int day, int year) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.MONTH, month-1);
 		cal.set(Calendar.DATE, day);
 		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		String w = null;
