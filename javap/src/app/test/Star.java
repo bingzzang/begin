@@ -1,4 +1,4 @@
-package app;
+package app.test;
 
 public class Star {
 
