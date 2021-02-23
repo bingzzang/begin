@@ -14,7 +14,6 @@ import com.servletboard.service.BoardService;
 import com.servletboard.vo.BoardList;
 import com.servletboard.vo.BoardVo;
 
-@WebServlet("/board/list")
 public class ListServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -46,7 +45,7 @@ public class ListServlet extends HttpServlet{
 		// 페이지 목록 attribute 저장
 		req.setAttribute("plist", plist);
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/board/listView.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/board/listView.jsp");
 		dispatcher.forward(req, resp);
 	}
 }

@@ -14,9 +14,9 @@ public class BoardList {
 		this.pageSize = pageSize;
 		this.totalCount = totalCount;
 		
-		totalPage = (this.totalCount-1) / pageSize;
+		totalPage = ((this.totalCount-1) / pageSize)+1;
 		this.currentPage = currentPage> totalPage ? totalPage : currentPage; 
-		this.currentPage = currentPage> 1 ? 1 :  currentPage;
+		this.currentPage = currentPage < 1 ? 1 :  currentPage;
 		
 		startPage = (this.currentPage-1)/10 * 10 +1;
 		//currentPage가 11-20일 경우 startPage 11

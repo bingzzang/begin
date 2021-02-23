@@ -20,4 +20,13 @@
   	<url-pattern>/board/list</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+  	<servlet-name>boardInsert</servlet-name>
+  	<servlet-class>com.servletboard.controller.InsertServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>boardInsert</servlet-name>
+  	<url-pattern>/board/insert</url-pattern>
+  </servlet-mapping>
 </web-app>
