@@ -4,7 +4,15 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class ThreadEx11 {
-
+	
+	public static void main(String[] args) {
+		Thread th1 = new ThreadEx11_1("a");
+		
+		Thread th2 = new ThreadEx11_2("b");
+		
+		th1.start();
+		th2.start();
+	}
 	
 }
 

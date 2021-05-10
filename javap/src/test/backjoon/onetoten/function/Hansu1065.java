@@ -1,31 +1,31 @@
 package test.backjoon.onetoten.function;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Hansu1065 {
 
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int n;
-		
-		// N입력
-		do {
-			n = Integer.parseInt(br.readLine());
-		} while (n<1 || n>1000);
+	Scanner sc = new Scanner(System.in);
+	int n;
+	int x;
 	
-		//한수의 개수
-		int count = 0;
+	public int insert(){
 		
-		//한수
-		int x;
-		
-		int nums[] = new int[3];
-		
-		for(int i=1;i<n;i++) {
-			
+		x = sc.nextInt();
+		if(x > 0 && x <= 1000) {
+			return x;
+		}else {
+			return -1;
 		}
+	}
+	
+	public void getHansu() {
+		
+		
+	}
+	public static void main(String[] args){
+		
+		Hansu1065 h = new Hansu1065();
+		h.getHansu();
 	}
 
 }
