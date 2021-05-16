@@ -12,5 +12,6 @@ public class ArraycopyEx {
 		for(int i=0; i<newStrArr.length;i++) {
 			System.out.println(newStrArr[i]);
 		}
+		
 	}
 }
