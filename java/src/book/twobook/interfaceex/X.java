@@ -1,7 +1,6 @@
 package book.twobook.interfaceex;
 
-public interface Buy {
+public interface X {
 
-	void buy();
-	
+	void x();
 }
