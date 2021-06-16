@@ -4,7 +4,7 @@ public class MyClassTest {
 
 	public static void main(String[] args) {
 		MyClass mclass = new MyClass();
-		
+		 
 		X xclass = mclass;
 		xclass.x();
 		
