@@ -30,5 +30,11 @@ public class EqualTest {
 		}else {
 			System.out.println("studentLee와 studentGok은 동일하지 않다.");
 		}
+		
+		System.out.println("studenLee의 hashCode : "+ studentLee.hashCode());
+		System.out.println("studenGok의 hashCode : "+ studentGok.hashCode());
+		
+		System.out.println("studentLee의 실제 주소값 : "+ System.identityHashCode(studentLee));
+		System.out.println("studentGok의 실제 주소값 : "+ System.identityHashCode(studentGok));
 	}
 }
