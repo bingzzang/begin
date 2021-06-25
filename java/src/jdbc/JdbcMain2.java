@@ -25,7 +25,7 @@ public class JdbcMain2 {
 			stmt = con.createStatement();
 			System.out.println("성공");
 		} catch (ClassNotFoundException cnfe) {
-			// TODO: handle exception
+			
 			System.err.println(cnfe);
 			cnfe.getStackTrace();
 		} catch (SQLException se) {
@@ -59,7 +59,7 @@ public class JdbcMain2 {
 			stmt.execute(sql);
 			System.out.println(tblname+" 테이블 생성 완료");
 		} catch (SQLException se) {
-			// TODO: handle exception
+			
 		}
 	}
 	

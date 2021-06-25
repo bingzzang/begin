@@ -23,7 +23,7 @@ public class StringGetBytesEx {
 			String str3 = new String(bytes3, "UTF-8");
 			System.out.println("bytes3->String : "+ str3);
 		} catch (UnsupportedEncodingException e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 	}

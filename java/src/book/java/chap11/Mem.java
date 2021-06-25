@@ -22,7 +22,7 @@ public class Mem implements Cloneable{	//복제할 수 있단 표시
 		try {
 			cloned = (Mem) clone();	//clone()메소드의 리턴 타입은 object이므로 mem타입으로 캐스팅해야함
 		} catch (CloneNotSupportedException e) {
-			// TODO: handle exception
+			
 		}
 		return cloned;
 	}

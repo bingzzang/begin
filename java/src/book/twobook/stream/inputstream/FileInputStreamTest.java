@@ -1,4 +1,4 @@
-package book.twobook.inputstream;
+package book.twobook.stream.inputstream;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class FileInputStreamTest {
 				fis.close();
 				
 			} catch (Exception e2) {
-				// TODO: handle exception
+				
 			}
 		}
 		System.out.println("--end--");

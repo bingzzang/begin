@@ -1,4 +1,4 @@
-package book.twobook.inputstream;
+package book.twobook.stream.inputstream;
 
 import java.util.Scanner;
 

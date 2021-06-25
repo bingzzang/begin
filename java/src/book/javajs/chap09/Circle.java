@@ -17,7 +17,7 @@ public class Circle implements Cloneable {
 		try {
 			obj = super.clone();
 		} catch (CloneNotSupportedException e) {
-			// TODO: handle exception
+			
 		}
 		return (Circle)obj;
 	}
@@ -27,7 +27,7 @@ public class Circle implements Cloneable {
 		try {
 			obj = super.clone();
 		} catch (CloneNotSupportedException e) {
-			// TODO: handle exception
+			
 		}
 		Circle c = (Circle) obj;
 		c.p = new Point(this.p.x, this.p.y);

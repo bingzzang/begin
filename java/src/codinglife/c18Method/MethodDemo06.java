@@ -30,7 +30,7 @@ public class MethodDemo06 {
 			out.write(result);
 			out.close();
 		} catch (IOException e) {
-			// TODO: handle exception
+			
 		}
 	}
 }
