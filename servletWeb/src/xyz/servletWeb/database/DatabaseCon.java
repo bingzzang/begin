@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 public class DatabaseCon {
 	
 	public static Connection getDbConnection() {
@@ -35,4 +39,16 @@ public class DatabaseCon {
 			e.printStackTrace();
 		}
 	}
+	
+//	public static void setting() {
+//		DataSource dataFactory = null;
+//		
+//		try {
+//			Context ctx = new InitialContext();
+//			Context envContext = (Context) ctx.lookup("java:/comp/env");
+//            dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 }
