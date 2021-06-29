@@ -14,6 +14,23 @@ public class ListVo {
 	public ListVo() {
 		
 	}
+	
+	
+	public ListVo(String title, String conts, String writer) {
+		super();
+		this.title = title;
+		this.conts = conts;
+		this.writer = writer;
+	}
+
+	public ListVo(int bno, String title, String conts, String writer) {
+		super();
+		this.bno = bno;
+		this.title = title;
+		this.conts = conts;
+		this.writer = writer;
+	}
+
 	public ListVo(int bno, String title, String conts, String writer, Date regdate, int viewcnt) {
 		super();
 		this.bno = bno;

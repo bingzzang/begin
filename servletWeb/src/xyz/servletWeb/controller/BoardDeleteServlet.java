@@ -1,30 +1,26 @@
 package xyz.servletWeb.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import xyz.servletWeb.dao.ListDao;
-import xyz.servletWeb.vo.ListVo;
+import xyz.servletWeb.dao.DeleteDao;
 
-public class BoardListServlet extends HttpServlet{
+public class BoardDeleteServlet extends HttpServlet{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("** list **");
-		ListDao dao = new ListDao();
-		List<ListVo> list = dao.boardList();
-		req.setAttribute("list", list);
-		req.getRequestDispatcher("WEB-INF/views/board/list.jsp").forward(req, resp);
+		
+		int bno = Integer.parseInt(req.getParameter("bno"));
+		
+		DeleteDao dao = new DeleteDao();
+		dao.delete(bno);
+		resp.sendRedirect("/list.do");
 	}
 	
 }

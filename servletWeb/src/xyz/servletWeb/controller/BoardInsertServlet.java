@@ -7,17 +7,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import xyz.servletWeb.dao.InsertDao;
+import xyz.servletWeb.vo.ListVo;
+
 public class BoardInsertServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doGet(req, resp);
+		req.getRequestDispatcher("WEB-INF/views/board/insert.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		System.out.println("*** post ***");
+		InsertDao dao = new InsertDao();
+		String title = req.getParameter("title");
+		String conts = req.getParameter("conts");
+		String writer = req.getParameter("writer");
+		
+		ListVo vo = new ListVo(title, conts, writer);
+		
+		dao.insert(vo);
+		resp.sendRedirect("/list.do");
 	}
 }

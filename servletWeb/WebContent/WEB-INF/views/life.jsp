@@ -9,5 +9,7 @@
 </head>
 <body>
 init -> service -> (do get) -> destroy
+<br/>
+<a href="../index.jsp">home</a>
 </body>
 </html>

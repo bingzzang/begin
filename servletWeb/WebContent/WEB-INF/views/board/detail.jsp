@@ -9,31 +9,33 @@
 </head>
 <body>
 
-<table>
+<table border="1">
   <tr>
     <th>bno</th>
-    <td>${vo.bno}</td>
+    <td width="150px">${vo.bno}</td>
+<!--   </tr> -->
+<!--   <tr> -->
+    <th>regdate</th>
+    <td width="150px">${vo.regdate}</td>
+    <th>viewcnt</th>
+    <td width="150px">${vo.viewcnt}</td>
   </tr>
   <tr>
     <th>title</th>
-    <td>${vo.title}</td>
+    <td width="150px" colspan="5">${vo.title}</td>
   </tr>
   <tr>
-    <th>regdate</th>
-    <td>${vo.regdate}</td>
-  </tr>
-  <tr>
-    <th>viewcnt</th>
-    <td>${vo.viewcnt}</td>
+    <th>writer</th>
+    <td width="150px" colspan="5">${vo.writer}</td>
   </tr>
   <tr>
     <th>contents</th>
-    <td>${vo.conts}</td>
+    <td width="150px" height="70px" colspan="5">${vo.conts}</td>
   </tr>
 </table>
 
-<%-- <a href="/jspPro/board/edit?seq=${dto.seq }">수정하기</a> --%>
-<a href="/list.do">목록으로</a>
-<%--         <a href="/jspPro/board/delete?seq=${dto.seq }">삭제하기</a> --%>
+<input type="button" value="update" onclick="location.href='/update.do?bno=${vo.bno}'"/>
+<input type="button" value="delete" onclick="location.href='/delete.do?bno=${vo.bno}'"/>
+<input type="button" value="list" onclick="location.href='/list.do'"/>
 </body>
 </html>

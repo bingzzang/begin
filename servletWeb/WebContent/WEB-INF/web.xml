@@ -57,4 +57,24 @@
     <servlet-name>boardInsert</servlet-name>
     <url-pattern>/insert.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>boardUpdate</servlet-name>
+    <servlet-class>xyz.servletWeb.controller.BoardUpdateServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>boardUpdate</servlet-name>
+    <url-pattern>/update.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>boardDelete</servlet-name>
+    <servlet-class>xyz.servletWeb.controller.BoardDeleteServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>boardDelete</servlet-name>
+    <url-pattern>/delete.do</url-pattern>
+  </servlet-mapping>
 </web-app>
