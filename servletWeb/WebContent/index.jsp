@@ -16,7 +16,7 @@
   <br/>
   <a href="/member/listMembers">memberList</a>
   <br/>
-  <input type="button" value="Sign In" onClick="location.href='/member/addMember'">
+  <input type="button" value="Sign In" onClick="location.href='/member/memberForm'">
   <input type="button" value="Sign Up" onClick="location.href=#">
 </body>
 </html>

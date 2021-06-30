@@ -17,7 +17,9 @@
 			<th>NAME</th>
 			<th>EMAIL</th>
 			<th>REGDATE</th>
+			<th>UPDATEDATE</th>
 			<th>UPDATE</th>
+			<th>DELETE</th>
 		</tr>
 		<c:choose>
 			<c:when test="${memberList==null}">
@@ -34,12 +36,14 @@
 						<td width="180px">${mem.email}</td>
 						<td width="120px">${mem.regdate}</td>
 						<td width="120px">${mem.updatedate}</td>
+						<td width="70px"><a href="/member/updateForm?userid=${mem.userid}">update</a></td>
+						<td width="70px"><a href="/member/deleteMember?userid=${mem.userid}">delete</a></td>
 					</tr>
 				</c:forEach>
 			</c:when>
 		</c:choose>
 	</table>
-	<input type="button" value="register" onclick="location.href='/member/addMember'"> 
+	<input type="button" value="register" onclick="location.href='/member/memberForm'"> 
 	<input type="button" value="home" onclick="location.href='../../index.jsp'"> 
 </body>
 </html>

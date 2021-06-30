@@ -26,11 +26,21 @@ public class MemberController extends HttpServlet {
 		super.init(config);
 		
 		dao = new MemberDao();		//객체 초기화
-//		super.init(config);
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doHandle(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doHandle(req, resp);
+	}
+	
+	private void doHandle(HttpServletRequest req, HttpServletResponse resp)
+		throws ServletException, IOException{
+		
 		String page = null;
 		String action = req.getPathInfo();
 		System.out.println("** command : " + action);
@@ -40,16 +50,38 @@ public class MemberController extends HttpServlet {
 			List<MemberVo> memberList = dao.getMemberList();
 			req.setAttribute("memberList", memberList);
 			page = "/WEB-INF/views/member/memberList.jsp";
-		}if(action.equals("/addMember")) {
+		}else if(action.equals("/memberForm")) {
 			page = "/WEB-INF/views/member/memberForm.jsp";
+		}else if(action.equals("/addMember")) {
+			String userid = req.getParameter("userid");
+			String userpw = req.getParameter("userpw");
+			String username = req.getParameter("username");
+			String email = req.getParameter("email");
+			
+			MemberVo vo = new MemberVo(userid, userpw, username, email);
+			dao.addMember(vo);
+			page = "/member/listMembers";
+		}else if(action.equals("/updateForm")) {
+			String userid = req.getParameter("userid");
+			MemberVo vo = dao.getMember(userid);
+			req.setAttribute("memberInfo", vo);
+			page = "/WEB-INF/views/member/memberUpdateForm.jsp";
+		}else if(action.equals("/updateMember")) {
+			String userid = req.getParameter("userid");
+			String userpw = req.getParameter("userpw");
+			String username = req.getParameter("username");
+			String email = req.getParameter("email");
+			
+			MemberVo vo = new MemberVo(userid, userpw, username, email);
+			dao.updateMember(vo);
+			page = "/member/listMembers";
+		}else if(action.equals("/deleteMember")) {
+			String userid = req.getParameter("userid");
+			dao.delete(userid);
+			
+			page = "/member/listMembers";
 		}
 		
 		req.getRequestDispatcher(page).forward(req, resp);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
 	}
 }

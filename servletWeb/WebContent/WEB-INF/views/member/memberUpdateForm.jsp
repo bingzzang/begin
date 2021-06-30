@@ -7,15 +7,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>sign up</title>
+<title>Update</title>
 </head>
 <body>
-	<p>Sign Up</p>
-	<form method="post" action="/member/addMember">
+	<p>Update</p>
+	<form method="post" action="/member/updateMember?userid=${memberInfo.userid}">
 		<table>
 		  <tr>
 		     <td width="100" bgcolor="powderblue">ID</td>
-		     <td width="300"><input type="text" name="userid"></td>
+		     <td width="300">${memberInfo.userid}</td>
 		  </tr>
 		  <tr>
 		      <td width="100" bgcolor="powderblue">PASSWORD</td>
@@ -23,11 +23,11 @@
 		  </tr>
 		  <tr>
 		      <td width="100" bgcolor="powderblue">NAME</td>
-		      <td width="300"><input type="text"  name="username"></td>
+		      <td width="300"><input type="text"  name="username" value="${memberInfo.username}"></td>
 		  </tr>
 		  <tr>
 		      <td width="100" bgcolor="powderblue">EMAIL</td>
-		      <td width="300"><input type="text" name="email"></td>
+		      <td width="300"><input type="text" name="email" value="${memberInfo.email}"></td>
 		  </tr>
 		</table>
 		<input type="submit" value="submit">

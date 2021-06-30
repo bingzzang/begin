@@ -26,6 +26,15 @@ public class MemberVo {
 		this.updatedate = updatedate;
 	}
 	
+
+	public MemberVo(String userid, String userpw, String username, String email) {
+		super();
+		this.userid = userid;
+		this.userpw = userpw;
+		this.username = username;
+		this.email = email;
+	}
+
 	public String getUserid() {
 		return userid;
 	}
